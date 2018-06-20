@@ -1,0 +1,7 @@
+.gradle/
+.idea/
+.vertx/
+build/
+out/
+src/generated
+*.iml
