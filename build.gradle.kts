@@ -33,8 +33,8 @@ dependencies {
 
     testCompile("io.vertx:vertx-junit5:$vertxVersion")
     testCompile("org.testcontainers:testcontainers:1.10.5")
-    testCompile("ch.qos.logback:logback-core:1.2.3")
-    testCompile("ch.qos.logback:logback-classic:1.2.3")
+    testRuntime("ch.qos.logback:logback-core:1.2.3")
+    testRuntime("ch.qos.logback:logback-classic:1.2.3")
 }
 
 
@@ -45,6 +45,7 @@ sourceSets {
         }
     }
 }
+
 idea {
     module {
         generatedSourceDirs = setOf(File("build/generated/source"))
@@ -67,6 +68,10 @@ protobuf {
             }
         }
     }
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
 }
 
 tasks.withType<Wrapper> { // wait for release 0.8.8 of protobuf plugin in order to upgrade to Gradle 5.1.1
