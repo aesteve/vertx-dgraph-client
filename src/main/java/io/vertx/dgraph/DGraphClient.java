@@ -14,13 +14,12 @@ public class DGraphClient {
 
     private DgraphGrpc.DgraphVertxStub stub;
 
-    public DGraphClient(Vertx vertx) {
+    public DGraphClient(Vertx vertx, DGraphClientOptions options) {
         ManagedChannel channel = VertxChannelBuilder
-                .forAddress(vertx, new InetSocketAddress("localhost", 9080))
-                .usePlaintext(true)
+                .forAddress(vertx, new InetSocketAddress(options.getHost(), options.getPort()))
+                .usePlaintext(options.isUsePlainText())
                 .build();
         stub = DgraphGrpc.newVertxStub(channel);
-
     }
 
     public void alter(DgraphProto.Operation request, Handler<AsyncResult<DgraphProto.Payload>> resultHandler) {
